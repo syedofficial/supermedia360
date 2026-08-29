@@ -1,0 +1,78 @@
+.call-picker {
+  position: relative;
+  display: inline-block;
+}
+
+.call-picker button {
+  font: inherit;
+}
+
+.call-picker-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  min-width: 220px;
+  padding: 8px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lift);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: call-picker-in 0.16s var(--ease-out);
+}
+
+@keyframes call-picker-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Raised specificity (.call-picker-menu + tag + class) so this always wins
+   over whatever anchor styling the surrounding context applies — this menu
+   gets embedded in places like the Packages footnote's `p a { ... }` rule,
+   which would otherwise leak its underline/color into these tel: links. */
+.call-picker-menu a.call-picker-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-family: var(--sans);
+  font-weight: 400;
+  transition: background var(--dur-fast) ease;
+}
+
+.call-picker-menu a.call-picker-option:hover {
+  background: var(--cloud);
+}
+
+.call-picker-menu .call-picker-option-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.call-picker-menu .call-picker-option-number {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .call-picker-menu {
+    animation: none;
+  }
+}

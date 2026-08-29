@@ -1,0 +1,238 @@
+.services {
+  background: var(--white);
+}
+
+.services-rail {
+  display: flex;
+  gap: 24px;
+  height: 460px;
+}
+
+.service-panel {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: left;
+  padding: 28px 22px;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  font-family: var(--sans);
+  transition:
+    flex-grow var(--dur-med) var(--ease-out),
+    background var(--dur-med) ease,
+    color var(--dur-med) ease,
+    box-shadow var(--dur-med) ease,
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.service-panel:hover,
+.service-panel:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.service-panel.is-active {
+  flex-grow: 3.4;
+  background: var(--accent, var(--sky-500));
+  color: #fff;
+  box-shadow: 0 24px 48px -16px var(--accent, rgba(9, 30, 66, 0.5));
+  justify-content: center;
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  .service-panel.is-active {
+    background: linear-gradient(
+      160deg,
+      var(--accent, var(--sky-500)),
+      color-mix(in srgb, var(--accent, var(--sky-500)) 100%, black 30%)
+    );
+    box-shadow: 0 24px 48px -16px color-mix(in srgb, var(--accent, var(--sky-500)) 60%, transparent);
+  }
+}
+
+.service-index {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 700;
+  opacity: 0.65;
+  letter-spacing: 1px;
+}
+
+.service-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 1.2;
+  margin-top: 14px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  /* Neither writing-mode nor a rotate-to-0 swap can animate smoothly, and
+     they only look correct as a matched pair (rotate 180 cancels out
+     vertical-rl's direction) — giving them different transition timing
+     (writing-mode instant, transform eased over time) let them fall out
+     of sync for a moment, rendering upside-down/mirrored text. Both now
+     flip as one atomic, zero-duration pair. Delaying that flip on the way
+     in until the panel has finished expanding (flex-grow's --dur-med)
+     stops the horizontal text from overflowing a still-narrow panel;
+     flipping back is instant, since a vertical line never overflows a
+     shrinking panel. */
+  transition: transform 0s linear, writing-mode 0s linear;
+}
+
+.service-panel.is-active .service-title {
+  writing-mode: horizontal-tb;
+  transform: none;
+  font-size: 26px;
+  transition: transform 0s linear var(--dur-med), writing-mode 0s linear var(--dur-med);
+}
+
+.service-panel.is-active .service-index{
+    display: none;
+}
+
+.service-body {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 32ch;
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition:
+    max-height var(--dur-med) var(--ease-out),
+    opacity var(--dur-med) ease,
+    margin-top var(--dur-med) ease;
+}
+
+.service-panel.is-active .service-body {
+  max-height: 120px;
+  opacity: 1;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.service-glyph {
+  position: absolute;
+  top: 20px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(11, 27, 51, 0.06);
+  color: var(--muted);
+  transition:
+    transform var(--dur-med) var(--ease-spring),
+    top var(--dur-med) var(--ease-spring),
+    right var(--dur-med) var(--ease-spring),
+    left var(--dur-med) var(--ease-spring),
+    width var(--dur-med) var(--ease-spring),
+    height var(--dur-med) var(--ease-spring),
+    border-radius var(--dur-med) var(--ease-out),
+    background var(--dur-med) ease,
+    box-shadow var(--dur-med) ease;
+}
+
+.service-glyph svg {
+  width: 20px;
+  height: 20px;
+  transition: width var(--dur-med) ease, height var(--dur-med) ease;
+}
+
+.service-panel.is-active .service-glyph {
+  top: 28px;
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--accent, var(--sky-600));
+  box-shadow: 0 10px 26px rgba(9, 30, 66, 0.3);
+}
+
+.service-panel.is-active .service-glyph svg {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 960px) {
+  .services-rail {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .service-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 20px;
+    flex-grow: 0 !important;
+  }
+
+  .service-title {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    font-size: 20px !important;
+    margin-top: 12px !important;
+  }
+
+  .service-index {
+    margin-top: 0;
+  }
+
+  .service-body {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+
+  .service-panel.is-active .service-body {
+    max-height: 100px;
+    opacity: 1;
+  }
+
+  .service-panel.is-active {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .service-glyph {
+    top: 16px;
+    right: 16px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .service-panel.is-active .service-glyph {
+    top: 16px;
+    right: 16px;
+    left: auto;
+    transform: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .service-panel.is-active .service-glyph svg {
+    width: 20px;
+    height: 20px;
+  }
+}

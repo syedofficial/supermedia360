@@ -1,0 +1,105 @@
+.portfolio {
+  background: var(--white);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.project-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lift);
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  .project-card:hover {
+    box-shadow:
+      0 30px 60px -20px color-mix(in srgb, var(--glow-color, var(--sky-500)) 45%, transparent),
+      var(--shadow-lift);
+  }
+}
+
+.project-visual {
+  position: relative;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.project-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(8, 27, 58, 0.55) 100%);
+  opacity: 0;
+  transition: opacity var(--dur-med) ease;
+}
+
+.project-card:hover .project-visual::after {
+  opacity: 1;
+}
+
+.project-monogram {
+  font-family: var(--display);
+  font-size: 96px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.85);
+  /* standalone `translate` carries the scroll parallax (no transition — it
+     must track the scrollbar 1:1); `scale` carries the hover pop and keeps
+     its own eased transition so the two motions never fight. */
+  translate: 0 var(--parallax-y, 0px);
+  transition: scale var(--dur-med) var(--ease-out);
+}
+
+.project-card:hover .project-monogram {
+  scale: 1.12;
+}
+
+.project-info {
+  padding: 26px 26px 30px;
+}
+
+.project-category {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sky-500);
+}
+
+.project-info h3 {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 10px 0 8px;
+}
+
+.project-info p {
+  font-family: var(--sans);
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}

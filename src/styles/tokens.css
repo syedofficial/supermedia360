@@ -1,0 +1,309 @@
+:root {
+  /* brand blues — from the hero sky */
+  --sky-100: #eaf5ff;
+  --sky-200: #cfe9ff;
+  --sky-300: #9ed2fc;
+  --sky-400: #5cb1f5;
+  --sky-500: #2e8fe8;
+  --sky-600: #1c6fd1;
+  --sky-700: #1653a3;
+  --navy-800: #0e2f5e;
+  --navy-900: #081b3a;
+
+  /* the logo's bubble-letter palette — used as deliberate, per-section accents */
+  --brand-red: #e5342b;
+  --brand-orange: #f7941d;
+  --coin-yellow: #ffc93c;
+  --brand-green: #4cb34f;
+  --coral: #ff6b57;
+  --leaf-green: #3ecf8e;
+
+  --white: #ffffff;
+  --cloud: #f3f8fe;
+  --ink: #0b1b33;
+  --ink-soft: #3c4a63;
+  --muted: #6b7a94;
+  --line: rgba(11, 27, 51, 0.1);
+
+  --radius-lg: 32px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 20px 50px rgba(9, 30, 66, 0.1);
+  --shadow-lift: 0 30px 70px rgba(9, 30, 66, 0.18);
+  --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 20px 60px rgba(28, 111, 209, 0.35);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.2s;
+  --dur-med: 0.5s;
+  --dur-slow: 0.9s;
+
+  --display: 'Fredoka', 'Inter', system-ui, sans-serif;
+  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --container: 1240px;
+  --pad-inline: clamp(24px, 6vw, 48px);
+
+  /* Anchor-nav landing offset — matches the fixed header's scrolled height
+     (58px logo + 12px*2 padding) plus a little breathing room. Any in-page
+     scroll target sits well past the scroll threshold, so the header is
+     always in its scrolled state by the time we land. */
+  --scroll-offset: 80px;
+}
+
+@media (max-width: 860px) {
+  :root {
+    --scroll-offset: 80px;
+  }
+}
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--pad-inline);
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(48px, 7vw, 96px);
+}
+
+/* Scroll-scrubbed sky-bg-frame background, shared by every section that
+   uses useScrollFrameSequence (see SkyBgFrames + that hook). Sits at
+   opacity:0 z-index behind the section's .container, which each of those
+   sections gives `position: relative; z-index: 1`. */
+.sky-frames {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.sky-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sky-frame-b {
+  opacity: 0;
+}
+
+/* Every in-page nav/anchor target declares its own landing offset, so both
+   Lenis (reads this natively when scrolling to an element) and native
+   anchor jumps land consistently below the fixed header. */
+section[id] {
+  scroll-margin-top: var(--scroll-offset);
+}
+
+.section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sky-600);
+    margin: 0 0 16px;
+}
+
+.section-heading {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0;
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+}
+
+.section-sub {
+  font-family: var(--sans);
+  color: var(--muted);
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.6;
+  max-width: 56ch;
+  margin: 16px 0 0;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+
+.btn {
+  cursor: pointer;
+  padding: 10px 25px;
+  border-radius: var(--radius-pill);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  /* .btn started out as an anchor-only class (no native chrome to fight),
+     but CallPicker applies it to a real <button> too — reset the UA
+     button background/appearance so btn-secondary/-outline-light's
+     "no background declared" (i.e. transparent) actually renders
+     transparent instead of the browser's default gray button face. */
+  background: none;
+  appearance: none;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-arrow {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 12px 28px rgba(11, 27, 51, 0.28);
+  transform: translateY(-2px);
+}
+
+.btn-onlight {
+  background: var(--white);
+  color: var(--navy-900);
+}
+
+.btn-onlight:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+}
+
+.btn-secondary:hover {
+  border-color: var(--sky-500);
+  color: var(--sky-600);
+  transform: translateY(-2px);
+}
+
+.btn-outline-light {
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  color: var(--white);
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+/* scroll-reveal primitives — the useReveal hook toggles the .is-in class */
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+[data-reveal='up'] {
+  transform: translateY(28px);
+}
+
+[data-reveal='scale'] {
+  transform: translateY(20px) scale(0.94);
+}
+
+[data-reveal='left'] {
+  transform: translateX(-32px);
+}
+
+[data-reveal='right'] {
+  transform: translateX(32px);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* dynamic-lighting spotlight — pair with the useSpotlight hook, which sets
+   --spot-x / --spot-y as the pointer moves over the element */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    var(--spot-color, rgba(255, 255, 255, 0.16)),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-med) ease;
+  pointer-events: none;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight::before {
+    display: none;
+  }
+}
+
+/* pixel-notched corner — a small 8-bit-inspired clip, used sparingly on
+   badges/plaques to nod at the brand's game-world roots without literal imagery */
+.pixel-notch {
+  clip-path: polygon(
+    0 6px, 6px 6px, 6px 0,
+    calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+    6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px)
+  );
+}
