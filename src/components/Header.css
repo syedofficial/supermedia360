@@ -191,16 +191,16 @@
 
   .mobile-menu-close {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 18px;
+    right: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border: none;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.22);
     color: #fff;
     cursor: pointer;
     transition: background var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);

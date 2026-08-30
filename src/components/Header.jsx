@@ -162,7 +162,7 @@ export default function Header() {
         aria-label="Close menu"
         onClick={() => setMenuOpen(false)}
       >
-        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+        <svg viewBox="0 0 20 20" width="22" height="22" aria-hidden="true">
           <path
             d="M5 5l10 10M15 5 5 15"
             fill="none"
