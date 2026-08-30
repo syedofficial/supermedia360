@@ -128,7 +128,7 @@ export default function Header() {
           onClick={openGetStarted}
           className="btn btn-onlight header-cta"
         >
-          Get Started
+          Let&apos;s Talk
         </button>
 
         <button
@@ -190,7 +190,7 @@ export default function Header() {
             openGetStarted()
           }}
         >
-          Get Started
+          Let&apos;s Talk
         </button>
       </nav>
     </div>

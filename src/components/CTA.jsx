@@ -34,10 +34,10 @@ export default function CTA() {
             onClick={openGetStarted}
             className="btn btn-onlight"
           >
-            Get Started
+            Let&apos;s Talk
           </button>
           <CallPicker ref={secondaryRef} className="btn btn-outline-light">
-            Book a Free Call
+            Talk to Us
           </CallPicker>
         </div>
 

@@ -123,7 +123,7 @@ export default function Hero() {
               onClick={openGetStarted}
               className="btn btn-onlight"
             >
-              Get Started
+              Let&apos;s Talk
             </button>
             <a ref={secondaryRef} href="#services" className="btn btn-outline-light">
               Our Services

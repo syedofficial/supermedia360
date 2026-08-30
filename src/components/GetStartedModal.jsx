@@ -65,7 +65,7 @@ export default function GetStartedModal({ isOpen, onClose }) {
         aria-label="Get started"
       >
         <div className="gs-modal-head">
-          <span className="gs-modal-title">Let&apos;s Get Started</span>
+          <span className="gs-modal-title">Let&apos;s Talk</span>
           <button
             type="button"
             className="gs-modal-close"

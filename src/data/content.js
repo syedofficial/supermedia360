@@ -115,7 +115,7 @@ export const packages = [
       'Performance Report',
     ],
     note: 'Additionally, we can include GMB setup if negotiated on price.',
-    cta: 'Get Started',
+    cta: "Let's Talk",
     featured: false,
     accent: 'var(--sky-500)',
   },
