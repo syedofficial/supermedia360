@@ -11,7 +11,6 @@ import Industries from './components/Industries'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
-import CookieConsent from './components/CookieConsent'
 import { GetStartedProvider } from './context/GetStartedContext'
 import { ScrollTrigger } from './lib/motion'
 import { initSmoothScroll, destroySmoothScroll } from './lib/smoothScroll'
@@ -46,7 +45,6 @@ function App() {
       </main>
       <Footer />
       <WhatsAppButton />
-      <CookieConsent />
     </GetStartedProvider>
   )
 }
