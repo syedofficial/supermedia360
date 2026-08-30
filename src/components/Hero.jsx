@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { googleFormUrl } from '../data/content'
 import { useTilt } from '../hooks/useTilt'
+import { useMagnetic } from '../hooks/useMagnetic'
 import { gsap, SplitText, prefersReducedMotion } from '../lib/motion'
 import './Hero.css'
 
@@ -12,6 +13,8 @@ export default function Hero() {
   const eyebrowRef = useRef(null)
   const headingRef = useRef(null)
   const detailsRef = useRef(null)
+  const primaryRef = useMagnetic(10)
+  const secondaryRef = useMagnetic(8)
 
   // Load-in: a slow settle on the visual, then the copy reveals in sequence.
   useLayoutEffect(() => {
@@ -113,10 +116,16 @@ export default function Hero() {
             faster across every platform.
           </p>
           <div className="hero-actions">
-            <a href={googleFormUrl} target="_blank" rel="noreferrer" className="btn btn-onlight">
+            <a
+              ref={primaryRef}
+              href={googleFormUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-onlight"
+            >
               Get Started
             </a>
-            <a href="#services" className="btn btn-outline-light">
+            <a ref={secondaryRef} href="#services" className="btn btn-outline-light">
               Our Services
             </a>
           </div>

@@ -43,8 +43,8 @@
 .call-picker-menu a.call-picker-option {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
+  gap: 8px;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -57,12 +57,9 @@
   background: var(--cloud);
 }
 
-.call-picker-menu .call-picker-option-label {
-  font-size: 13px;
-  font-weight: 600;
+.call-picker-menu .call-picker-option-icon {
+  flex-shrink: 0;
   color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
 }
 
 .call-picker-menu .call-picker-option-number {

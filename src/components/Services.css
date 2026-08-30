@@ -75,6 +75,11 @@
   margin-top: 14px;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
+  /* nowrap — otherwise, while the panel's flex-grow is mid-transition, the
+     vertical column briefly has room to wrap into two shorter columns
+     before settling back to one, a visible reflow jump as panels
+     expand/collapse. */
+  white-space: nowrap;
   /* No CSS transition here on purpose: writing-mode can't animate, and a
      CSS transition-delay on a discrete property + 0s duration isn't
      reliably honored across browsers (it was flipping immediately
@@ -90,6 +95,19 @@
 .service-title.is-horizontal {
   writing-mode: horizontal-tb;
   transform: none;
+  /* The orientation swap itself is still an instant cut (writing-mode
+     can't transition), but fading it in — rather than just popping to
+     full opacity — keeps that cut from reading as a hard jump. */
+  animation: service-title-in var(--dur-med) var(--ease-out);
+}
+
+@keyframes service-title-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .service-panel.is-active .service-index{

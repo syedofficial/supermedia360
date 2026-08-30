@@ -71,14 +71,23 @@ export function useSectionIntro({ start = 'top 82%' } = {}) {
 
     if (actions) {
       tweens.push(
-        gsap.from(actions.children.length ? [...actions.children] : actions, {
-          opacity: 0,
-          y: 16,
-          duration: 0.6,
-          stagger: 0.08,
-          delay: sub ? 0.46 : 0.3,
-          scrollTrigger: { trigger: root, start, once: true },
-        }),
+        // fromTo (not .from()) — the heading's SplitText reveal reflows the
+        // layout at this same moment, and .from() measures its "to" state
+        // lazily when the tween starts, so a mid-flight reflow can make it
+        // land on the "from" y instead of resting at 0. An explicit "to"
+        // sidesteps that.
+        gsap.fromTo(
+          actions.children.length ? [...actions.children] : actions,
+          { opacity: 0, y: 16 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.08,
+            delay: sub ? 0.46 : 0.3,
+            scrollTrigger: { trigger: root, start, once: true },
+          },
+        ),
       )
     }
 

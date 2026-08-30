@@ -2,8 +2,8 @@ import { forwardRef, useEffect, useRef, useState } from 'react'
 import './CallPicker.css'
 
 const CALL_OPTIONS = [
-  { label: 'Option 1', number: '7806929113' },
-  { label: 'Option 2', number: '8667665118' },
+  { number: '7806929113' },
+  { number: '8667665118' },
 ]
 
 const CallPicker = forwardRef(function CallPicker({ className, children }, triggerRef) {
@@ -55,7 +55,20 @@ const CallPicker = forwardRef(function CallPicker({ className, children }, trigg
               role="menuitem"
               onClick={() => setOpen(false)}
             >
-              <span className="call-picker-option-label">{option.label}</span>
+              <svg
+                className="call-picker-option-icon"
+                viewBox="0 0 20 20"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5.5 3h2l1.2 3.3-1.6 1.3a9 9 0 0 0 4.3 4.3l1.3-1.6L16 11.5v2a1.5 1.5 0 0 1-1.6 1.5A11.5 11.5 0 0 1 4 4.6 1.5 1.5 0 0 1 5.5 3Z" />
+              </svg>
               <span className="call-picker-option-number">{option.number}</span>
             </a>
           ))}
