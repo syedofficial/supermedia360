@@ -1,6 +1,12 @@
-// TODO: replace with the real Google Form link — every "Get Started" /
-// plan CTA button opens this in a new tab.
-export const googleFormUrl = 'https://forms.google.com/REPLACE_ME'
+// Every "Get Started" / plan CTA button opens this form in the themed
+// on-site popup (see GetStartedModal) rather than a new tab.
+export const googleFormUrl =
+  'https://docs.google.com/forms/d/e/1FAIpQLSfIGNpmCiOJ_fXtr4Z1gUINqIeOhoZ34nAKnZVKT8706CGa-Q/viewform'
+
+// Shared by CallPicker (tel:) and WhatsAppButton (wa.me) — both team
+// members should be reachable, so visitors pick which one to contact
+// rather than either link guessing for them.
+export const contactNumbers = ['7806929113', '8667665118']
 
 export const philosophyPillars = [
   {
@@ -25,39 +31,39 @@ export const philosophyPillars = [
 
 export const services = [
   {
-    key: 'social',
-    title: 'Social Media Management',
-    body: 'Consistent, on-brand posting across Instagram, Facebook, and more — fully managed for you.',
+    key: 'marketing',
+    title: 'Digital Marketing',
+    body: 'Grow your business with smart strategies, SEO, social media, and paid ads.',
     accent: 'var(--brand-red)',
-  },
-  {
-    key: 'reels',
-    title: 'Reel Editing',
-    body: 'Cinematic short-form video editing with trending hooks, transitions, and captions that convert.',
-    accent: 'var(--sky-500)',
-  },
-  {
-    key: 'ads',
-    title: 'Meta Ads',
-    body: 'Performance-driven paid campaigns on Facebook and Instagram engineered for maximum ROI.',
-    accent: 'var(--brand-green)',
   },
   {
     key: 'branding',
     title: 'Branding',
-    body: "Premium brand identity systems — logos, color palettes, and guidelines that command respect.",
+    body: 'Build a strong, memorable brand with professional design and visual identity.',
+    accent: 'var(--sky-500)',
+  },
+  {
+    key: 'social',
+    title: 'Social Media Management',
+    body: 'Keep your brand active and engaging across Instagram, Facebook, and more.',
+    accent: 'var(--brand-green)',
+  },
+  {
+    key: 'video',
+    title: 'Video Production',
+    body: 'Create engaging reels, promotional videos, corporate videos, and AI content.',
     accent: 'var(--coin-yellow)',
   },
   {
-    key: 'content',
-    title: 'Content Creation',
-    body: "High-quality photo and graphic content crafted to reflect your brand's premium positioning.",
+    key: 'webdev',
+    title: 'Web Development',
+    body: 'Build modern, AI-powered, animated, and interactive websites that engage visitors.',
     accent: 'var(--brand-orange)',
   },
   {
-    key: 'leads',
-    title: 'Lead Generation',
-    body: 'Targeted funnels and ad strategies that fill your pipeline with qualified, ready-to-buy leads.',
+    key: 'photography',
+    title: 'Photography',
+    body: 'Capture high-quality visuals that showcase your products, people & brand.',
     accent: 'var(--leaf-green)',
   },
 ]
@@ -93,47 +99,68 @@ export const whyStats = [
   { value: 95, suffix: '%', label: 'Client Retention', accent: 'var(--brand-green)' },
 ]
 
+// These are social media management packages.
 export const packages = [
   {
     key: 'starter',
-    name: 'Starter',
-    tagline: 'For brands ready to get noticed.',
-    price: '₹7,999/mo',
+    name: 'Starter Pack',
+    tagline: 'One-time investment',
+    price: '₹1,999*',
     features: [
-      '12 Posts per month',
-      'Basic Reel Editing',
-      'Custom Captions',
-      'Monthly Performance Report',
+      'Business Market Analysis & Strategy',
+      'Photography',
+      '1 Reel Editing',
+      'Meta Ads Setup',
+      'Content Writing',
+      'Performance Report',
     ],
+    note: 'Additionally, we can include GMB setup if negotiated on price.',
     cta: 'Get Started',
     featured: false,
     accent: 'var(--sky-500)',
   },
   {
     key: 'growth',
-    name: 'Growth',
-    tagline: 'For brands ready to scale fast.',
-    price: '₹14,999/mo',
-    badge: 'Most Popular — Recommended',
+    name: 'Growth Pack',
+    tagline: 'Subscription Basis (1 Month)',
+    price: '₹4,999*/mo',
+    badge: 'Recommended',
     features: [
-      '20 Posts per month',
-      '8 Premium Reels',
-      'Strategy Support',
-      'Engagement Management',
+      'Business Market Analysis & Strategy',
+      'Professional Photography',
+      'Business Promotional Videography',
+      '15 Business Promotional Posts',
+      '3 Premium Reels Editing',
+      'Instagram Auto Engagement Setup',
+      'Meta Ads Setup',
+      'Content Writing',
+      'Monthly Performance Report',
     ],
+    note: 'Additionally, we can include GMB & influencer marketing if negotiated on price.',
     cta: 'Start Growing',
     featured: true,
   },
   {
     key: 'premium',
-    name: 'Premium',
-    tagline: 'For brands ready to dominate their market.',
-    price: '₹24,999/mo',
+    name: 'Premium Pack',
+    tagline: 'Minimum Subscription Basis (3 Months)',
+    price: '₹9,999*/mo',
     features: [
-      '30+ Content Pieces',
-      'Advanced Reel Production',
-      'Full Ad Campaign Setup',
-      'Lead Generation System',
+      'Account Management',
+      'Business Market Analysis & Strategy',
+      'Professional Photography',
+      'Business Promotional Videography',
+      '2 AI Promotional Video Productions',
+      '25 Business Promotional Posts',
+      '5 Premium Reels Editing',
+      'WhatsApp Chat Integration',
+      'Instagram Auto Engagement Setup',
+      'Full Meta Ads Campaign Setup',
+      'Influencer Marketing Promotion (1 reel)',
+      'SEO (for existing client websites)',
+      'Guideline Templates',
+      'Content Writing',
+      'Monthly Performance Report',
     ],
     cta: 'Get Premium',
     featured: false,
@@ -233,9 +260,9 @@ export const navLinks = [
 
 // Accents mirror the 01–04 accent order used in the "Why SuperMedia360?"
 // cards, so hovering each social icon picks up a different brand color.
+// LinkedIn and YouTube are hidden for now (no live profile yet) — re-add
+// them here with a real href once those are up.
 export const socialLinks = [
-  { label: 'Instagram', href: 'https://instagram.com', icon: 'instagram', accent: 'var(--brand-red)' },
-  { label: 'Facebook', href: 'https://facebook.com', icon: 'facebook', accent: 'var(--sky-500)' },
-  { label: 'LinkedIn', href: 'https://linkedin.com', icon: 'linkedin', accent: 'var(--brand-green)' },
-  { label: 'YouTube', href: 'https://youtube.com', icon: 'youtube', accent: 'var(--coin-yellow)' },
+  { label: 'Instagram', href: 'https://www.instagram.com/supermedia360?igsi=dWY5ajZ4OWMzeTRo', icon: 'instagram', accent: 'var(--brand-red)' },
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61594078166184', icon: 'facebook', accent: 'var(--sky-500)' },
 ]

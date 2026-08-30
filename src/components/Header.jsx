@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { navLinks, googleFormUrl } from '../data/content'
+import { navLinks } from '../data/content'
+import { useGetStarted } from '../hooks/useGetStarted'
 import { useMagnetic } from '../hooks/useMagnetic'
 import { gsap, prefersReducedMotion } from '../lib/motion'
 import './Header.css'
@@ -8,6 +9,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [active, setActive] = useState('#home')
+  const openGetStarted = useGetStarted()
   const ctaRef = useMagnetic(6)
   const scrolledRef = useRef(false)
   const progressRef = useRef(null)
@@ -96,6 +98,7 @@ export default function Header() {
   }, [menuOpen])
 
   return (
+    <>
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
       <span className="scroll-progress" ref={progressRef} aria-hidden="true" />
       <div className="site-header-inner">
@@ -119,15 +122,14 @@ export default function Header() {
           ))}
         </nav>
 
-        <a
+        <button
           ref={ctaRef}
-          href={googleFormUrl}
-          target="_blank"
-          rel="noreferrer"
+          type="button"
+          onClick={openGetStarted}
           className="btn btn-onlight header-cta"
         >
           Get Started
-        </a>
+        </button>
 
         <button
           type="button"
@@ -141,29 +143,57 @@ export default function Header() {
           <span />
         </button>
       </div>
+    </header>
 
-      <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`}>
-        <nav aria-label="Mobile" ref={mobileNavRef}>
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+    {/* Sibling of <header>, not a descendant — .site-header.is-scrolled sets
+        backdrop-filter, and a backdrop-filter/filter ancestor becomes the
+        containing block for its position:fixed descendants. Nested here,
+        this fixed full-screen overlay would collapse to the header's own
+        (much smaller) box the moment the page had already scrolled past the
+        is-scrolled threshold before the menu was opened.
+        It stacks above <header> (see Header.css) so it's a true full-screen
+        cover, not just the area below the header bar — which is why it
+        carries its own close button rather than relying on the header's
+        now-hidden-behind-it toggle. */}
+    <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`}>
+      <button
+        type="button"
+        className="mobile-menu-close"
+        aria-label="Close menu"
+        onClick={() => setMenuOpen(false)}
+      >
+        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+          <path
+            d="M5 5l10 10M15 5 5 15"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
+      <nav aria-label="Mobile" ref={mobileNavRef}>
+        {navLinks.map((link) => (
           <a
-            href={googleFormUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-onlight"
+            key={link.href}
+            href={link.href}
             onClick={() => setMenuOpen(false)}
           >
-            Get Started
+            {link.label}
           </a>
-        </nav>
-      </div>
-    </header>
+        ))}
+        <button
+          type="button"
+          className="btn btn-onlight"
+          onClick={() => {
+            setMenuOpen(false)
+            openGetStarted()
+          }}
+        >
+          Get Started
+        </button>
+      </nav>
+    </div>
+    </>
   )
 }

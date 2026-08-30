@@ -1,11 +1,12 @@
 import { useLayoutEffect, useRef } from 'react'
-import { googleFormUrl } from '../data/content'
+import { useGetStarted } from '../hooks/useGetStarted'
 import { useTilt } from '../hooks/useTilt'
 import { useMagnetic } from '../hooks/useMagnetic'
 import { gsap, SplitText, prefersReducedMotion } from '../lib/motion'
 import './Hero.css'
 
 export default function Hero() {
+  const openGetStarted = useGetStarted()
   const videoRef = useTilt(2)
   const sectionRef = useRef(null)
   const visualRef = useRef(null)
@@ -116,15 +117,14 @@ export default function Hero() {
             faster across every platform.
           </p>
           <div className="hero-actions">
-            <a
+            <button
               ref={primaryRef}
-              href={googleFormUrl}
-              target="_blank"
-              rel="noreferrer"
+              type="button"
+              onClick={openGetStarted}
               className="btn btn-onlight"
             >
               Get Started
-            </a>
+            </button>
             <a ref={secondaryRef} href="#services" className="btn btn-outline-light">
               Our Services
             </a>

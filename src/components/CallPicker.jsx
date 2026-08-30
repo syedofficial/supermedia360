@@ -1,32 +1,14 @@
-import { forwardRef, useEffect, useRef, useState } from 'react'
+import { forwardRef, useCallback, useRef, useState } from 'react'
+import { contactNumbers } from '../data/content'
+import { useDismiss } from '../hooks/useDismiss'
 import './CallPicker.css'
-
-const CALL_OPTIONS = [
-  { number: '7806929113' },
-  { number: '8667665118' },
-]
 
 const CallPicker = forwardRef(function CallPicker({ className, children }, triggerRef) {
   const [open, setOpen] = useState(false)
   const rootRef = useRef(null)
+  const close = useCallback(() => setOpen(false), [])
 
-  useEffect(() => {
-    if (!open) return
-
-    const handlePointerDown = (event) => {
-      if (rootRef.current && !rootRef.current.contains(event.target)) setOpen(false)
-    }
-    const handleKey = (event) => {
-      if (event.key === 'Escape') setOpen(false)
-    }
-
-    document.addEventListener('pointerdown', handlePointerDown)
-    document.addEventListener('keydown', handleKey)
-    return () => {
-      document.removeEventListener('pointerdown', handlePointerDown)
-      document.removeEventListener('keydown', handleKey)
-    }
-  }, [open])
+  useDismiss(open, close, rootRef)
 
   return (
     // Spans throughout — this component gets used inline inside a <p> (the
@@ -47,10 +29,10 @@ const CallPicker = forwardRef(function CallPicker({ className, children }, trigg
 
       {open && (
         <span className="call-picker-menu" role="menu">
-          {CALL_OPTIONS.map((option) => (
+          {contactNumbers.map((number) => (
             <a
-              key={option.number}
-              href={`tel:+91${option.number}`}
+              key={number}
+              href={`tel:+91${number}`}
               className="call-picker-option"
               role="menuitem"
               onClick={() => setOpen(false)}
@@ -69,7 +51,7 @@ const CallPicker = forwardRef(function CallPicker({ className, children }, trigg
               >
                 <path d="M5.5 3h2l1.2 3.3-1.6 1.3a9 9 0 0 0 4.3 4.3l1.3-1.6L16 11.5v2a1.5 1.5 0 0 1-1.6 1.5A11.5 11.5 0 0 1 4 4.6 1.5 1.5 0 0 1 5.5 3Z" />
               </svg>
-              <span className="call-picker-option-number">{option.number}</span>
+              <span className="call-picker-option-number">{number}</span>
             </a>
           ))}
         </span>

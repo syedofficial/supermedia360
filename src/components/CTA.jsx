@@ -1,4 +1,5 @@
-import { ctaFeatures, googleFormUrl } from '../data/content'
+import { ctaFeatures } from '../data/content'
+import { useGetStarted } from '../hooks/useGetStarted'
 import { useSectionIntro } from '../hooks/useSectionIntro'
 import { useBatchReveal } from '../hooks/useBatchReveal'
 import { useMagnetic } from '../hooks/useMagnetic'
@@ -6,6 +7,7 @@ import CallPicker from './CallPicker'
 import './CTA.css'
 
 export default function CTA() {
+  const openGetStarted = useGetStarted()
   const introRef = useSectionIntro({ start: 'top 88%' })
   const featuresRef = useBatchReveal('.cta-feature', { variant: 'up', stagger: 0.1 })
   const primaryRef = useMagnetic(10)
@@ -26,15 +28,14 @@ export default function CTA() {
           real results.
         </p>
         <div className="cta-actions">
-          <a
+          <button
             ref={primaryRef}
-            href={googleFormUrl}
-            target="_blank"
-            rel="noreferrer"
+            type="button"
+            onClick={openGetStarted}
             className="btn btn-onlight"
           >
             Get Started
-          </a>
+          </button>
           <CallPicker ref={secondaryRef} className="btn btn-outline-light">
             Book a Free Call
           </CallPicker>

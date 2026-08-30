@@ -1,4 +1,5 @@
-import { packages, googleFormUrl } from '../data/content'
+import { packages } from '../data/content'
+import { useGetStarted } from '../hooks/useGetStarted'
 import { useSectionIntro } from '../hooks/useSectionIntro'
 import { useBatchReveal } from '../hooks/useBatchReveal'
 import { useTilt } from '../hooks/useTilt'
@@ -9,6 +10,7 @@ import CallPicker from './CallPicker'
 import './Packages.css'
 
 function PackageCard({ pkg }) {
+  const openGetStarted = useGetStarted()
   const tiltRef = useTilt(pkg.featured ? 5 : 4, pkg.featured ? 1.04 : 1)
   const spotlightRef = useSpotlight()
 
@@ -48,17 +50,17 @@ function PackageCard({ pkg }) {
           </li>
         ))}
       </ul>
-      <a
-        href={googleFormUrl}
-        target="_blank"
-        rel="noreferrer"
+      {pkg.note && <p className="package-note">{pkg.note}</p>}
+      <button
+        type="button"
+        onClick={openGetStarted}
         className={`btn package-cta ${pkg.featured ? 'btn-onlight' : 'btn-primary'}`}
       >
         {pkg.cta}
         <span className="btn-arrow" aria-hidden="true">
           &rarr;
         </span>
-      </a>
+      </button>
     </div>
   )
 }

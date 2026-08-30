@@ -87,14 +87,35 @@
      instead (see Services.jsx's PANEL_EXPAND_MS / titleActive), toggling
      this same instant swap via .is-horizontal only once the panel has
      actually finished expanding, so horizontal text never overflows a
-     still-narrow panel. Flipping back to vertical stays instant, driven
-     directly by .is-horizontal being removed as soon as the panel
-     deactivates. */
+     still-narrow panel.
+     Flipping back to vertical (deactivating) is still an instant
+     writing-mode cut, but unlike the activating direction it used to have
+     no fade to cushion it — the fully-opaque horizontal title would pop
+     to vertical in one visible frame, reading as a broken "rotate" glitch.
+     A distinctly-named keyframe (not just reusing service-title-in) makes
+     the browser treat this as a fresh animation whenever this rule
+     (re)matches, so it fades in the same way every time .is-horizontal is
+     removed. */
+  animation: service-title-in-vertical var(--dur-med) var(--ease-out);
+}
+
+@keyframes service-title-in-vertical {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .service-title.is-horizontal {
   writing-mode: horizontal-tb;
   transform: none;
+  /* Longer titles (e.g. "AI & Interactive Web Development") need to wrap
+     across lines once horizontal — nowrap is only needed to stop the
+     vertical column from wrapping. */
+  white-space: normal;
+  text-align: center;
   /* The orientation swap itself is still an instant cut (writing-mode
      can't transition), but fading it in — rather than just popping to
      full opacity — keeps that cut from reading as a hard jump. */
@@ -204,6 +225,11 @@
     transform: none !important;
     font-size: 20px !important;
     margin-top: 12px !important;
+  }
+
+  .service-title.is-horizontal {
+    width: 100%;
+    text-align: center;
   }
 
   .service-index {

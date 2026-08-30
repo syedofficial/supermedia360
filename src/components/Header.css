@@ -178,11 +178,37 @@
     background: linear-gradient(165deg, #419acb, var(--sky-500) 120%);
     transform: translateX(100%);
     transition: transform var(--dur-med) var(--ease-out);
-    z-index: 55;
+    /* Above .site-header's 50 — a genuine full-screen cover, including the
+       header bar itself (logo + toggle) underneath, not just the area
+       below it. Its own .mobile-menu-close handles closing, since the
+       header's toggle button is now hidden behind it while open. */
+    z-index: 65;
   }
 
   .mobile-menu.is-open {
     transform: translateX(0);
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    cursor: pointer;
+    transition: background var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);
+  }
+
+  .mobile-menu-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
   }
 
   .mobile-menu nav {

@@ -24,7 +24,21 @@ export function useScrollFrameSequence({ reverse = false, start = 'top bottom', 
     const frameB = frameBRef.current
     if (!section || !frameA || !frameB || !skyFrames.length) return
 
-    preloadSkyFrames()
+    // Defers the full ~51-frame preload (a few MB) until this section is
+    // actually getting close, instead of firing it unconditionally on
+    // mount — this sequence sits well below the fold, and eagerly fetching
+    // it on initial load competed with above-the-fold assets (hero video,
+    // fonts) for bandwidth on every page load, regardless of whether the
+    // visitor ever scrolled this far.
+    const preloadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        preloadSkyFrames()
+        preloadObserver.disconnect()
+      },
+      { rootMargin: '600px 0px' },
+    )
+    preloadObserver.observe(section)
 
     const frames = reverse ? [...skyFrames].reverse() : skyFrames
     const lastIndex = frames.length - 1
@@ -50,7 +64,9 @@ export function useScrollFrameSequence({ reverse = false, start = 'top bottom', 
 
     setProgress(0)
 
-    if (prefersReducedMotion()) return
+    if (prefersReducedMotion()) {
+      return () => preloadObserver.disconnect()
+    }
 
     const trigger = ScrollTrigger.create({
       trigger: section,
@@ -59,7 +75,10 @@ export function useScrollFrameSequence({ reverse = false, start = 'top bottom', 
       onUpdate: (self) => setProgress(self.progress),
     })
 
-    return () => trigger.kill()
+    return () => {
+      preloadObserver.disconnect()
+      trigger.kill()
+    }
   }, [reverse, start, end])
 
   return { sectionRef, frameARef, frameBRef }

@@ -137,7 +137,7 @@
 
 .package-features {
   list-style: none;
-  margin: 24px 0 32px;
+  margin: 24px 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -166,9 +166,20 @@
   color: var(--coin-yellow);
 }
 
+.package-note {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  font-style: italic;
+  color: inherit;
+  opacity: 0.65;
+  margin: 16px 0 0;
+}
+
 .package-cta {
   justify-content: center;
   width: 100%;
+  margin-top: 24px;
 }
 
 .package-footnote {
