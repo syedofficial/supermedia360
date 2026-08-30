@@ -1,8 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { services } from '../data/content'
 import { useReveal } from '../hooks/useReveal'
 import { useSectionIntro } from '../hooks/useSectionIntro'
 import './Services.css'
+
+// Must match --dur-med in tokens.css — the panel's own flex-grow expansion
+// takes this long, and the title should only flip from vertical to
+// horizontal once that expansion has actually finished (see the comment
+// by the title's className below for why this couldn't be done in CSS).
+const PANEL_EXPAND_MS = 500
 
 const ICON_PROPS = {
   viewBox: '0 0 20 20',
@@ -53,8 +59,20 @@ const SERVICE_ICONS = {
 
 export default function Services() {
   const [active, setActive] = useState(0)
+  // Lags `active` by PANEL_EXPAND_MS so the title only flips horizontal
+  // after the panel has actually finished growing — flipping immediately
+  // overflowed the still-narrow panel mid-expansion. Flipping a
+  // newly-inactive panel's title back to vertical stays instant (it's
+  // gated on `active === index` directly, not on this), since a vertical
+  // line never overflows a shrinking panel.
+  const [titleActive, setTitleActive] = useState(0)
   const headRef = useSectionIntro()
   const { ref: railRef, isIn: railIn } = useReveal({ threshold: 0.15 })
+
+  useEffect(() => {
+    const timer = setTimeout(() => setTitleActive(active), PANEL_EXPAND_MS)
+    return () => clearTimeout(timer)
+  }, [active])
 
   return (
     <section id="services" className="section services">
@@ -89,7 +107,11 @@ export default function Services() {
               <span className="service-index">
                 {String(index + 1).padStart(2, '0')}
               </span>
-              <span className="service-title">{service.title}</span>
+              <span
+                className={`service-title ${active === index && titleActive === index ? 'is-horizontal' : ''}`}
+              >
+                {service.title}
+              </span>
               <span className="service-body">{service.body}</span>
               <span className="service-glyph" aria-hidden="true">
                 {SERVICE_ICONS[service.key]}

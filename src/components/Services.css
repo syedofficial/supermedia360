@@ -75,24 +75,21 @@
   margin-top: 14px;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  /* Neither writing-mode nor a rotate-to-0 swap can animate smoothly, and
-     they only look correct as a matched pair (rotate 180 cancels out
-     vertical-rl's direction) — giving them different transition timing
-     (writing-mode instant, transform eased over time) let them fall out
-     of sync for a moment, rendering upside-down/mirrored text. Both now
-     flip as one atomic, zero-duration pair. Delaying that flip on the way
-     in until the panel has finished expanding (flex-grow's --dur-med)
-     stops the horizontal text from overflowing a still-narrow panel;
-     flipping back is instant, since a vertical line never overflows a
-     shrinking panel. */
-  transition: transform 0s linear, writing-mode 0s linear;
+  /* No CSS transition here on purpose: writing-mode can't animate, and a
+     CSS transition-delay on a discrete property + 0s duration isn't
+     reliably honored across browsers (it was flipping immediately
+     instead of waiting) — Chromium included. The flip is timed from JS
+     instead (see Services.jsx's PANEL_EXPAND_MS / titleActive), toggling
+     this same instant swap via .is-horizontal only once the panel has
+     actually finished expanding, so horizontal text never overflows a
+     still-narrow panel. Flipping back to vertical stays instant, driven
+     directly by .is-horizontal being removed as soon as the panel
+     deactivates. */
 }
 
-.service-panel.is-active .service-title {
+.service-title.is-horizontal {
   writing-mode: horizontal-tb;
   transform: none;
-  font-size: 26px;
-  transition: transform 0s linear var(--dur-med), writing-mode 0s linear var(--dur-med);
 }
 
 .service-panel.is-active .service-index{

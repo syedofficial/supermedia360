@@ -48,11 +48,6 @@
     box-shadow var(--dur-fast) ease;
 }
 
-@supports (color: color-mix(in srgb, red, blue)) {
-  .why-card {
-    --spot-color: color-mix(in srgb, var(--accent, #fff) 35%, transparent);
-  }
-}
 
 .why-card:hover {
   transform: translateY(-6px);
@@ -140,5 +135,11 @@
   .why-stats {
     gap: 32px;
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .why-grid {
+    grid-template-columns: 1fr;
   }
 }

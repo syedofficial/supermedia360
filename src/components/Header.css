@@ -175,7 +175,7 @@
     position: fixed;
     inset: 0;
     top: 0;
-    background: var(--navy-900);
+    background: linear-gradient(165deg, #419acb, var(--sky-500) 120%);
     transform: translateX(100%);
     transition: transform var(--dur-med) var(--ease-out);
     z-index: 55;
@@ -205,5 +205,6 @@
 
   .mobile-menu .btn {
     margin-top: 16px;
+    color: var(--navy-900);
   }
 }
