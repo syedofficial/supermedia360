@@ -46,7 +46,7 @@ export default function WhyUs() {
           <div className="section-head">
             <span className="section-eyebrow">Why SuperMedia360?</span>
           </div>
-          <p className="why-statement">The Standard Has Changed.</p>
+          <h2 className="why-statement">The Standard Has Changed.</h2>
         </div>
 
         <div ref={gridRef} className="why-grid">

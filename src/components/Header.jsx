@@ -103,11 +103,16 @@ export default function Header() {
       <span className="scroll-progress" ref={progressRef} aria-hidden="true" />
       <div className="site-header-inner">
         <a href="#home" className="brand">
-          <img
-            src="/sm360-logo-light.png"
-            alt="Super Media 360"
-            className="brand-logo"
-          />
+          <picture>
+            <source srcSet="/sm360-logo-light.webp" type="image/webp" />
+            <img
+              src="/sm360-logo-light.png"
+              alt="Super Media 360"
+              className="brand-logo"
+              width="300"
+              height="213"
+            />
+          </picture>
         </a>
 
         <nav className="site-nav" aria-label="Primary">

@@ -37,11 +37,17 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <img
-            src="/sm360-logo-dark.png"
-            alt="Super Media 360"
-            className="footer-logo"
-          />
+          <picture>
+            <source srcSet="/sm360-logo-dark.webp" type="image/webp" />
+            <img
+              src="/sm360-logo-dark.png"
+              alt="Super Media 360"
+              className="footer-logo"
+              width="200"
+              height="146"
+              loading="lazy"
+            />
+          </picture>
         </div>
 
         <nav className="footer-links" aria-label="Footer">

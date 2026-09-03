@@ -24,22 +24,6 @@ export function useScrollFrameSequence({ reverse = false, start = 'top bottom', 
     const frameB = frameBRef.current
     if (!section || !frameA || !frameB || !skyFrames.length) return
 
-    // Defers the full ~51-frame preload (a few MB) until this section is
-    // actually getting close, instead of firing it unconditionally on
-    // mount — this sequence sits well below the fold, and eagerly fetching
-    // it on initial load competed with above-the-fold assets (hero video,
-    // fonts) for bandwidth on every page load, regardless of whether the
-    // visitor ever scrolled this far.
-    const preloadObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return
-        preloadSkyFrames()
-        preloadObserver.disconnect()
-      },
-      { rootMargin: '600px 0px' },
-    )
-    preloadObserver.observe(section)
-
     const frames = reverse ? [...skyFrames].reverse() : skyFrames
     const lastIndex = frames.length - 1
     let lastFloor = -1
@@ -62,7 +46,22 @@ export function useScrollFrameSequence({ reverse = false, start = 'top bottom', 
       frameB.style.opacity = fraction.toFixed(3)
     }
 
-    setProgress(0)
+    // Defers the very first frame paint *and* the full ~51-frame preload
+    // (a few MB) until this section is actually getting close, instead of
+    // firing on mount unconditionally — this sequence sits well below the
+    // fold, and eagerly fetching frames on initial load competed with
+    // above-the-fold assets (hero video, fonts) for bandwidth on every
+    // page load, regardless of whether the visitor ever scrolled this far.
+    const preloadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setProgress(0)
+        preloadSkyFrames()
+        preloadObserver.disconnect()
+      },
+      { rootMargin: '600px 0px' },
+    )
+    preloadObserver.observe(section)
 
     if (prefersReducedMotion()) {
       return () => preloadObserver.disconnect()

@@ -120,21 +120,36 @@
 .t-progress {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
   margin-top: 28px;
 }
 
 .t-dot {
+  /* The button's own box meets the 24x24 CSS-px tap-target minimum
+     (WCAG 2.5.8); the visible pill is drawn smaller via ::after so the
+     dot row still reads as compact. */
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.t-dot::after {
+  content: '';
+  display: block;
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  border: none;
   background: var(--line);
-  cursor: pointer;
   transition: width var(--dur-med) var(--ease-out), background var(--dur-fast) ease;
 }
 
-.t-dot.is-active {
+.t-dot.is-active::after {
   width: 28px;
   background: var(--sky-500);
 }

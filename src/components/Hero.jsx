@@ -22,7 +22,9 @@ export default function Hero() {
     if (prefersReducedMotion()) return
 
     let split = null
-    const tl = gsap.timeline({ delay: 0.2 })
+    // Kept short — the eyebrow is the page's LCP text, and every ms of
+    // delay before it starts fading in is counted as LCP render delay.
+    const tl = gsap.timeline({ delay: 0.05 })
 
     if (visualRef.current) {
       tl.fromTo(
@@ -34,7 +36,7 @@ export default function Hero() {
     }
 
     if (eyebrowRef.current) {
-      tl.from(eyebrowRef.current, { opacity: 0, y: 16, duration: 0.7 }, 0.5)
+      tl.from(eyebrowRef.current, { opacity: 0, y: 16, duration: 0.7 }, 0.1)
     }
 
     if (headingRef.current) {
@@ -42,12 +44,12 @@ export default function Hero() {
       tl.from(
         split.lines,
         { yPercent: 115, opacity: 0, duration: 1, stagger: 0.12, ease: 'power4.out' },
-        0.62,
+        0.22,
       )
     }
 
     if (detailsRef.current) {
-      tl.from(detailsRef.current, { opacity: 0, y: 24, duration: 0.8 }, 1.05)
+      tl.from(detailsRef.current, { opacity: 0, y: 24, duration: 0.8 }, 0.65)
     }
 
     return () => {
@@ -90,12 +92,14 @@ export default function Hero() {
           ref={videoRef}
           className="hero-video"
           src="/hero-video.mp4"
+          poster="/hero-poster.jpg"
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
           disableRemotePlayback
+          aria-hidden="true"
         />
       </div>
       <div className="hero-overlay" />

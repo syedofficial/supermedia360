@@ -20,7 +20,8 @@
 
 .footer-logo {
   display: block;
-  max-width: 100px;
+  height: 75px;
+  width: auto;
 }
 
 .footer-tagline {
