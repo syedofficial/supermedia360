@@ -42,9 +42,19 @@ function ProjectCard({ project }) {
           background: `radial-gradient(circle at 30% 20%, ${project.color}, ${project.color}55 70%, var(--navy-900) 130%)`,
         }}
       >
-        <span className="project-monogram" ref={visualRef}>
-          {project.name.charAt(0)}
-        </span>
+        {project.image ? (
+          <img
+            className="project-thumb"
+            src={project.image}
+            alt={project.name}
+            ref={visualRef}
+            loading="lazy"
+          />
+        ) : (
+          <span className="project-monogram" ref={visualRef}>
+            {project.name.charAt(0)}
+          </span>
+        )}
       </div>
       <div className="project-info">
         <span className="project-category">{project.category}</span>

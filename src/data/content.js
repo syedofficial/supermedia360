@@ -136,7 +136,6 @@ export const packages = [
       'Content Writing',
       'Monthly Performance Report',
     ],
-    note: 'Additionally, we can include GMB & influencer marketing if negotiated on price.',
     cta: 'Start Growing',
     featured: true,
   },
@@ -170,25 +169,27 @@ export const packages = [
 
 export const portfolioProjects = [
   {
+    key: 'homebaker',
+    name: 'Homebaker Brand Campaign',
+    category: 'Content & Reels',
+    result: 'Full content writing + Reels video production for a homemade pastries brand — 10K engagement in just 2 days.',
+    color: '#e91e8c',
+    image: '/tempting-bites-logo.jpeg',
+  },
+  {
+    key: 'ai-video',
+    name: 'AI Marketing Video',
+    category: 'AI Video Production',
+    result: 'AI-generated promotional video for a real estate & construction brand — a cinematic, impressive client experience.',
+    color: '#2e8fe8',
+    image: '/portfolio-ai-video.jpg',
+  },
+  {
     key: 'fashion',
     name: 'Fashion Brand Campaign',
     category: 'Social & Content',
     result: 'Full content calendar + reels for a premium clothing boutique — 40K new followers in 90 days.',
     color: '#e5342b',
-  },
-  {
-    key: 'restaurant',
-    name: 'Restaurant Social Growth',
-    category: 'Content Strategy',
-    result: 'Mouth-watering content strategy that tripled weekend foot traffic for a fine dining client.',
-    color: '#f7941d',
-  },
-  {
-    key: 'realestate',
-    name: 'Real Estate Lead Gen',
-    category: 'Performance Marketing',
-    result: 'Meta Ad funnels generating 200+ qualified property leads monthly for a local real estate firm.',
-    color: '#2e8fe8',
   },
 ]
 

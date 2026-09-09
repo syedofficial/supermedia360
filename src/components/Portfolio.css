@@ -53,6 +53,19 @@
   opacity: 1;
 }
 
+.project-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale var(--dur-med) var(--ease-out);
+}
+
+.project-card:hover .project-thumb {
+  scale: 1.08;
+}
+
 .project-monogram {
   font-family: var(--display);
   font-size: 96px;
