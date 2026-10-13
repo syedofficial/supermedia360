@@ -2,33 +2,75 @@
   background: var(--white);
 }
 
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+.portfolio-slider {
+  --gap: 28px;
+}
+
+/* padding/negative margin leave room for the card hover lift + shadow
+   without the viewport clipping them */
+.portfolio-viewport {
+  overflow: hidden;
+  padding: 16px 12px 44px;
+  margin: -16px -12px -44px;
+}
+
+.portfolio-track {
+  display: flex;
+  gap: var(--gap);
+  transform: translateX(
+    calc(
+      var(--i) * -1 * ((100% - (var(--per) - 1) * var(--gap)) / var(--per) + var(--gap))
+    )
+  );
+  transition: transform 700ms var(--ease-out);
+}
+
+.portfolio-track .project-card {
+  flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+  min-width: 0;
+}
+
+.portfolio-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 36px;
+}
+
+.portfolio-dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--sky-200);
+  cursor: pointer;
+  transition:
+    width var(--dur-med) var(--ease-out),
+    background var(--dur-med) ease;
+}
+
+.portfolio-dots button.is-active {
+  width: 28px;
+  background: var(--sky-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-track {
+    transition: none;
+  }
 }
 
 .project-card {
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--white);
-  box-shadow: var(--shadow-soft);
-  transition:
-    transform var(--dur-med) var(--ease-out),
-    box-shadow var(--dur-med) var(--ease-out);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform var(--dur-med) var(--ease-out);
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lift);
-}
-
-@supports (color: color-mix(in srgb, red, blue)) {
-  .project-card:hover {
-    box-shadow:
-      0 30px 60px -20px color-mix(in srgb, var(--glow-color, var(--sky-500)) 45%, transparent),
-      var(--shadow-lift);
-  }
 }
 
 .project-visual {
@@ -111,8 +153,9 @@
   margin: 0;
 }
 
-@media (max-width: 900px) {
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
+.project-thumb.is-logo {
+  inset: 30px;
+  width: calc(100% - 60px);
+  height: calc(100% - 60px);
+  object-fit: contain;
 }

@@ -91,12 +91,11 @@ export const whyFeatures = [
   },
 ]
 
-// Placeholder figures — swap in real numbers before launch.
 export const whyStats = [
-  { value: 120, suffix: '+', label: 'Projects Completed', accent: 'var(--brand-red)' },
-  { value: 60, suffix: '+', label: 'Brands Helped', accent: 'var(--coin-yellow)' },
-  { value: 2, suffix: 'M+', label: 'Monthly Reach', accent: 'var(--sky-200)' },
-  { value: 95, suffix: '%', label: 'Client Retention', accent: 'var(--brand-green)' },
+  { value: 25, suffix: '+', label: 'Projects Completed', accent: 'var(--brand-red)' },
+  { value: 10, suffix: '+', label: 'Brands Helped', accent: 'var(--coin-yellow)' },
+  { value: 100, suffix: 'K+', label: 'Monthly Reach', accent: 'var(--sky-200)' },
+  { value: 100, suffix: '%', label: 'Client Commitment', accent: 'var(--brand-green)' },
 ]
 
 // These are social media management packages.
@@ -183,6 +182,15 @@ export const portfolioProjects = [
     result: 'AI-generated promotional video for a real estate & construction brand — a cinematic, impressive client experience.',
     color: '#2e8fe8',
     image: '/portfolio-ai-video.jpg',
+  },
+  {
+    key: 'maruti-suzuki-showroom',
+    name: 'Maruti Suzuki Showroom',
+    category: 'AI Video Production',
+    result: 'AI-generated promotional videos for a Maruti Suzuki showroom — cinematic showcases of the latest models for social and in-store screens.',
+    color: '#2d3394',
+    image: '/maruti-suzuki-logo.svg',
+    logo: true,
   },
   {
     key: 'fashion',
